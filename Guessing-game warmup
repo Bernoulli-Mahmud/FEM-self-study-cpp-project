@@ -1,0 +1,46 @@
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+    bool grid[3][3] = {{1, 0, 0}, {0, 1, 0}, {0, 0, 1}};
+    bool guessed[3][3] = {false};
+    int turn = 0, hit = 0;
+
+    while (hit < 4 && turn < 5) {
+        int x = 0, y = 0;
+        cout << "enter x=" << endl;
+        cin >> x;
+        cout << "enter y=" << endl;
+        cin >> y;
+
+        if (x < 0 || x >= 3 || y < 0 || y >= 3) {
+            cout << "Invalid coordinates. Please enter valid coordinates." << endl;
+            continue; // Ask for input again
+        }
+
+        if (guessed[x][y]) {
+            cout << "You have already guessed this point. Please enter different coordinates." << endl;
+            continue; // Ask for input again
+        }
+
+        guessed[x][y] = true;
+
+        if (grid[x][y] == 1) {
+            hit++;
+            cout << "Hit! You need " << 4 - hit << " left to win" << endl;
+        } else {
+            turn++;
+            cout << "Missed. You have " << 4 - turn << " turns left" << endl;
+        }
+    }
+
+    if (hit == 4) {
+        cout << "Congratulations! You found all four hits. You won!" << endl;
+    } else {
+        cout << "Sorry, you lost. Better luck next time!" << endl;
+    }
+
+    return 0;
+}
